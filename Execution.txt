@@ -1,0 +1,10 @@
+﻿usuário admin
+	cadastrar moto
+	consultar moto (filtrar consulta por placa)
+	modificar moto
+	remover moto
+usuário entregador
+	cadastrar entregador
+	atualizar cadastro
+	alugar moto
+	informar data de devolução da moto
