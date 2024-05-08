@@ -1,4 +1,6 @@
-﻿namespace BikeRental.Usuario;
+﻿using BikeRental.Locacao;
+
+namespace BikeRental.Usuario;
 public class Usuario
 {
 	public int Id { get; set; }
@@ -8,4 +10,5 @@ public class Usuario
 	public DateTime DataNascimento { get; set; }
 	public string NumeroCnh { get; set; }
 	public int TipoCnh { get; set; }
+	public List<Locacao.Locacao> HistoricoLocacao { get; set; }
 }
