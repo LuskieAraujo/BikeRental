@@ -4,78 +4,63 @@ using Microsoft.AspNetCore.Mvc;
 namespace BikeRental.Moto;
 public class MotoController : Controller
 {
-	// GET: MotoController
-	public ActionResult Index()
-	{
-		return View();
-	}
+	private MotoService _service = new MotoService();
 
 	// GET: MotoController/Details/5
 	public ActionResult Details(int id)
 	{
-		return View();
-	}
-
-	// GET: MotoController/Create
-	public ActionResult Create()
-	{
-		return View();
+		try
+		{
+			return _service.DetalharMoto(id);
+		}
+		catch
+		{
+			return BadRequest();
+		}
 	}
 
 	// POST: MotoController/Create
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Create(IFormCollection collection)
+	public ActionResult Create([FromBody] Moto bike)
 	{
 		try
 		{
-			return RedirectToAction(nameof(Index));
+			return _service.SalvarDadosMoto(bike) ? Ok() : Conflict();
 		}
 		catch
 		{
-			return View();
+			return BadRequest();
 		}
-	}
-
-	// GET: MotoController/Edit/5
-	public ActionResult Edit(int id)
-	{
-		return View();
 	}
 
 	// POST: MotoController/Edit/5
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Edit(int id, IFormCollection collection)
+	public ActionResult Edit([FromBody] Moto bike)
 	{
 		try
 		{
-			return RedirectToAction(nameof(Index));
+			return _service.SalvarDadosMoto(bike) ? Ok() : Conflict();
 		}
 		catch
 		{
-			return View();
+			return BadRequest();
 		}
-	}
-
-	// GET: MotoController/Delete/5
-	public ActionResult Delete(int id)
-	{
-		return View();
 	}
 
 	// POST: MotoController/Delete/5
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Delete(int id, IFormCollection collection)
+	public ActionResult Delete(int id)
 	{
 		try
 		{
-			return RedirectToAction(nameof(Index));
+			return _service.DeletarMoto(id) ? Ok() : Conflict();
 		}
 		catch
 		{
-			return View();
+			return BadRequest();
 		}
 	}
 }

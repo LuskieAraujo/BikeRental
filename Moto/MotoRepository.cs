@@ -2,6 +2,7 @@
 
 public class MotoRepository
 {
+	private DataAccess da = new DataAccess();
 	/// <summary>
 	/// Insere no banco de dados uma moto nova.
 	/// </summary>
@@ -11,7 +12,8 @@ public class MotoRepository
 	{
 		try
 		{
-			return true;
+			var strSql = "";
+            return da.ExecScalar(strSql);
 		}
 		catch (Exception ex)
 		{
@@ -28,7 +30,8 @@ public class MotoRepository
 	{
 		try
 		{
-			return true;
+			var strSql = "";
+			return da.ExecScalar(strSql);
 		}
 		catch (Exception ex)
 		{
@@ -45,7 +48,8 @@ public class MotoRepository
 	{
 		try
 		{
-			return true;
+			var strSql = "";
+            return da.ExecScalar(strSql);
 		}
 		catch (Exception ex)
 		{
@@ -60,7 +64,22 @@ public class MotoRepository
 	/// <returns> Lista de motos cadastradas.</returns>
 	public List<Moto> SelectBikes(string placa)
 	{
-		return new List<Moto>();
+		//return new List<Moto>().Where(x => x.Placa == placa).ToList();
+		var strSql = string.Format("", placa);
+		object list = da.ExecQuery(strSql);
+
+		var retorno = new List<Moto>();
+		foreach (var item in list)
+		{
+			retorno.Add(new Moto
+			{
+				Id = item.id,
+				Ano = item.ano,
+				Modelo = item.modelo,
+				Placa = item.placa
+			});
+		}
+		return retorno;
 	}
 	/// <summary>
 	/// Consulta no banco de dados uma lista de motos sem filtro.
@@ -68,6 +87,37 @@ public class MotoRepository
 	/// <returns>Lista de motos cadastradas.</returns>
 	public List<Moto> SelectBikes()
 	{
-		return new List<Moto>();
+		var strSql = "";
+        object list = da.ExecQuery(strSql);
+
+        var retorno = new List<Moto>();
+        foreach (var item in list)
+        {
+            retorno.Add(new Moto
+            {
+                Id = item.id,
+                Ano = item.ano,
+                Modelo = item.modelo,
+                Placa = item.placa
+            });
+        }
+        return retorno;
+    }
+    /// <summary>
+    /// Consulta no banco de dados todas as informações da moto.
+    /// </summary>
+    /// <returns>Lista de motos cadastradas.</returns>
+    public Moto BikeDetails(int id)
+	{
+		var strSql = "";
+		object bike = da.ExecQuery(strSql);
+		return new Moto()
+		{
+			Id = bike.id,
+			Ano = bike.ano,
+			Modelo = bike.modelo,
+			Placa = bike.placa,
+			Alugada = bike.alugada
+		}
 	}
 }

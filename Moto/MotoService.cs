@@ -1,4 +1,6 @@
-﻿namespace BikeRental.Moto;
+﻿using BikeRental.Locacao;
+
+namespace BikeRental.Moto;
 
 public class MotoService
 {
@@ -22,5 +24,11 @@ public class MotoService
 	public List<Moto> ConsultaMotos(string placa = "")
 	{
 		return placa.Equals(string.Empty) ? _repository.SelectBikes() : _repository.SelectBikes(placa);
+	}
+	public Moto DetalharMoto(int id)
+	{
+		var bike = _repository.BikeDetails(id);
+		bike.HistoricoLocacoes.AddRange(new LocacaoService().MotoHistoricoLocacao(id));
+		return bike;
 	}
 }
