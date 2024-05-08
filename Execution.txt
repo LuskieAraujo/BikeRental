@@ -1,8 +1,8 @@
 ﻿usuário admin
-	cadastrar moto
-	consultar moto (filtrar consulta por placa)
-	modificar moto
-	remover moto
+	cadastrar moto - ok
+	consultar moto (filtrar consulta por placa) - ok
+	modificar moto - ok
+	remover moto - ok
 usuário entregador
 	cadastrar entregador
 	atualizar cadastro

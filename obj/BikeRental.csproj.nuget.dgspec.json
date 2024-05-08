@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arauj\\source\\repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj": {}
+    "C:\\Users\\sidne\\Source\\Repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arauj\\source\\repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj": {
+    "C:\\Users\\sidne\\Source\\Repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arauj\\source\\repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj",
+        "projectUniqueName": "C:\\Users\\sidne\\Source\\Repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj",
         "projectName": "BikeRental",
-        "projectPath": "C:\\Users\\arauj\\source\\repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj",
-        "packagesPath": "C:\\Users\\arauj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arauj\\source\\repos\\LuskieAraujo\\BikeRental\\obj\\",
+        "projectPath": "C:\\Users\\sidne\\Source\\Repos\\LuskieAraujo\\BikeRental\\BikeRental.csproj",
+        "packagesPath": "C:\\Users\\sidne\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sidne\\Source\\Repos\\LuskieAraujo\\BikeRental\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\arauj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sidne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,9 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/ScluscQG49FWzAriDV1QoFuqoKguqRi4SlT7cVuI6hfUedS66d/api/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -34,6 +40,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -43,6 +54,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.3, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -68,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
