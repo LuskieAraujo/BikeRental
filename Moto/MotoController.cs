@@ -1,27 +1,49 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BikeRental.Moto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.Moto;
-public class MotoController : Controller
+[ApiController]
+[Route("[controller]")]
+public class MotoController : ControllerBase
 {
 	private MotoService _service = new MotoService();
-
-	// GET: MotoController/Details/5
+	[HttpGet("/BikeDetail")]
 	public ActionResult Details(int id)
 	{
 		try
 		{
-			return _service.DetalharMoto(id);
+			return Ok(_service.DetalharMoto(id));
 		}
 		catch
 		{
 			return BadRequest();
 		}
 	}
-
-	// POST: MotoController/Create
-	[HttpPost]
-	[ValidateAntiForgeryToken]
+	[HttpGet("/BikesList")]
+	public ActionResult List()
+	{
+		try
+		{
+			return Ok(_service.ConsultaMotos());
+		}
+		catch
+		{
+			return BadRequest();
+		}
+	}
+	[HttpGet("/BikesFilteredList")]
+	public ActionResult Filter(string placa)
+	{
+		try
+		{
+			return Ok(_service.ConsultaMotos(placa));
+		}
+		catch
+		{
+			return BadRequest();
+		}
+	}
+	[HttpPost("/IncludeBike")]
 	public ActionResult Create([FromBody] Moto bike)
 	{
 		try
@@ -34,9 +56,7 @@ public class MotoController : Controller
 		}
 	}
 
-	// POST: MotoController/Edit/5
-	[HttpPost]
-	[ValidateAntiForgeryToken]
+	[HttpPut("/EditBike")]
 	public ActionResult Edit([FromBody] Moto bike)
 	{
 		try
@@ -49,9 +69,7 @@ public class MotoController : Controller
 		}
 	}
 
-	// POST: MotoController/Delete/5
-	[HttpPost]
-	[ValidateAntiForgeryToken]
+	[HttpDelete("/DeleteBike")]
 	public ActionResult Delete(int id)
 	{
 		try
