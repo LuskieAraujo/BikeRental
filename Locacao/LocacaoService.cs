@@ -12,4 +12,24 @@ public class LocacaoService
     {
         return _repository.SelectRentalsByDelivery(idEntregador);
     }
+    public Reserva.Reserva ReservarLocacao()
+    {
+        return new Reserva.Reserva
+        {
+            Motos = new Moto.MotoService().ListarModelos(),
+            Planos = new Plano.PlanoService().ListarPlanos()
+        };
+    }
+    public bool EfetuarLocacao(Locacao rent)
+    {
+        try
+        {
+
+
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
