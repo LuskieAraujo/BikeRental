@@ -3,16 +3,9 @@
 public class PlanoService
 {
 	private PlanoRepository _repository = new PlanoRepository();
+	
 	public List<Plano> ListarPlanos()
 	{
-		try
-		{
-
-		}
-		catch
-		{
-
-		}
+		return _repository.PlanList();
 	}
-
 }
