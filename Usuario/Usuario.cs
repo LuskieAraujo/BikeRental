@@ -1,6 +1,4 @@
-﻿using BikeRental.Locacao;
-
-namespace BikeRental.Usuario;
+﻿namespace BikeRental.Usuario;
 public class Usuario
 {
 	public int Id { get; set; }
