@@ -21,18 +21,22 @@ public class MotoService
 	{
 		return moto.Id.Equals(0)
 			? _repository.InsertBike(moto)
-			: _repository.UpdateBike(moto);
+			: !moto.Alugada && _repository.UpdateBike(moto);
 	}
 	public bool DeletarMoto(int id)
 	{
-		return !_repository.BikeDetails(id).Alugada
+		return new LocacaoService().MotoHistoricoLocacao(id).Count == 0
 			? _repository.DeleteBike(id)
 			: false;
 	}
 	public Moto DetalharMoto(int id)
 	{
 		var bike = _repository.BikeDetails(id);
-		bike.HistoricoLocacoes.AddRange(new LocacaoService().MotoHistoricoLocacao(id));
+		bike.HistoricoLocacoes.AddRange(new LocacaoService().MotoHistoricoLocacao(bike.Id));
 		return bike;
+	}
+	public List<Moto> ListarModelos()
+	{
+		return _repository.SelectModels();
 	}
 }

@@ -14,10 +14,10 @@ public class MotoRepository
 	{
 		try
 		{
-			var strSql = 
+			var strSql =
 				$"insert into public.\"Bike\" (\"Ano\", \"Modelo\", \"Placa\") " +
 				$"values ('{bike.Ano}', '{bike.Modelo}', '{bike.Placa}')";
-            
+
 			return da.ExecScalar(strSql);
 		}
 		catch (Exception ex)
@@ -57,12 +57,41 @@ public class MotoRepository
 		{
 			var strSql = $"delete from public.\"Bike\" " +
 				$"where \"Id\" = {Id}";
-            return da.ExecScalar(strSql);
+			return da.ExecScalar(strSql);
 		}
 		catch (Exception ex)
 		{
 			Console.WriteLine(ex.Message);
 			return false;
+		}
+	}
+	/// <summary>
+	/// Retorna lista de modelos de motos para locação.
+	/// </summary>
+	/// <returns></returns>
+	public List<Moto> SelectModels()
+	{
+		try
+		{
+			var strSql = $"select distinct \"Modelo\", \"Ano\" from public.\"Bike\" order by \"Modelo\"";
+			DataTable list = da.ExecQuery(strSql);
+			var models = new List<Moto>();
+
+			foreach (DataRow row in list.Rows)
+			{
+				models.Add(new Moto
+				{
+					Ano = (int)row["ano"],
+					Modelo = row["modelo"].ToString()
+				});
+			}
+
+			return models;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+			return new List<Moto>();
 		}
 	}
 	/// <summary>
@@ -103,38 +132,54 @@ public class MotoRepository
 	/// <returns>Lista de motos cadastradas.</returns>
 	public List<Moto> SelectBikes()
 	{
-		var strSql = "select \"Id\", \"Ano\", \"Modelo\", \"Placa\" from public.\"Bike\" limit 100";
-		DataTable list = da.ExecQuery(strSql);
-
-		var retorno = new List<Moto>();
-		foreach (DataRow bike in list.Rows)
+		try
 		{
-			retorno.Add(new Moto
+			var strSql = "select \"Id\", \"Ano\", \"Modelo\", \"Placa\" from public.\"Bike\" limit 100";
+			DataTable list = da.ExecQuery(strSql);
+
+			var retorno = new List<Moto>();
+			foreach (DataRow bike in list.Rows)
+			{
+				retorno.Add(new Moto
+				{
+					Id = (int)bike["id"],
+					Ano = (int)bike["ano"],
+					Modelo = bike["modelo"].ToString(),
+					Placa = bike["placa"].ToString()
+				});
+			}
+			return retorno;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+			return new List<Moto>();
+		}
+	}
+	/// <summary>
+	/// Consulta no banco de dados todas as informações da moto.
+	/// </summary>
+	/// <returns>Lista de motos cadastradas.</returns>
+	public Moto BikeDetails(int id)
+	{
+		try
+		{
+			var strSql = $"select * from public.\"Bike\" where \"Id\" = {id}";
+			DataRow bike = da.ExecQuery(strSql).Rows[0];
+
+			return new Moto()
 			{
 				Id = (int)bike["id"],
 				Ano = (int)bike["ano"],
 				Modelo = bike["modelo"].ToString(),
-				Placa = bike["placa"].ToString()
-			});
+				Placa = bike["placa"].ToString(),
+				Alugada = (bool)bike["alugada"]
+			};
 		}
-		return retorno;
-	}
-    /// <summary>
-    /// Consulta no banco de dados todas as informações da moto.
-    /// </summary>
-    /// <returns>Lista de motos cadastradas.</returns>
-    public Moto BikeDetails(int id)
-	{
-		var strSql = "";
-		DataRow bike = da.ExecQuery(strSql).Rows[0];
-
-		return new Moto()
+		catch (Exception ex)
 		{
-			Id = (int)bike["id"],
-			Ano = (int)bike["ano"],
-			Modelo = bike["modelo"].ToString(),
-			Placa = bike["placa"].ToString(),
-			Alugada = (bool)bike["alugada"]
-		};
+			Console.WriteLine(ex.Message);
+			return new Moto();
+		}
 	}
 }

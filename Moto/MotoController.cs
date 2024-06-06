@@ -1,5 +1,4 @@
-﻿using BikeRental.Moto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.Moto;
 [ApiController]
