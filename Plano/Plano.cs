@@ -6,4 +6,5 @@ public class Plano
 	public string Periodo { get; set; }
 	public decimal Diaria { get; set; }
 	public decimal PorcentagemMulta { get; set; }
+	public int Dias { get; set; }
 }

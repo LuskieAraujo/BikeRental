@@ -8,4 +8,8 @@ public class PlanoService
 	{
 		return _repository.PlanList();
 	}
+	public Plano ObterPlano(int idPlano)
+	{
+		return _repository.GetPlan(idPlano);
+	}
 }
