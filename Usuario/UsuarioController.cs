@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.Usuario;
-
+[ApiController]
+[Route("[controller]")]
 public class UsuarioController : ControllerBase
 {
 	private UsuarioService _service = new UsuarioService();
+	[HttpPost("IncluirUsuario")]
 	public ActionResult NewUser(Usuario user)
 	{
 		try
@@ -16,6 +18,7 @@ public class UsuarioController : ControllerBase
 			return BadRequest();
 		}
 	}
+	[HttpPut("AlterarUsuario")]
 	public ActionResult EditUser(Usuario user)
 	{
 		try
@@ -27,6 +30,7 @@ public class UsuarioController : ControllerBase
 			return BadRequest();
 		}
 	}
+	[HttpPost("ImportarArquivo")]
 	public ActionResult AddDocument(IFormFile document)
 	{
 		try
@@ -40,4 +44,6 @@ public class UsuarioController : ControllerBase
 			return BadRequest();
 		}
 	}
+	[HttpDelete]
+	public void RemoveTestUsers() =>_service.RemoveUsers();
 }

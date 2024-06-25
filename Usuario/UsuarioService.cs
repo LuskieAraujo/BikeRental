@@ -3,18 +3,22 @@
 public class UsuarioService
 {
 	private UsuarioRepository _repository = new UsuarioRepository();
-	/*
-	 * contexto: entregador / locatário
-	 */
 	public bool SalvarUsuario(Usuario usuario)
 	{
+		if(usuario.Id.Equals(0) && (_repository.VerifyExistingUser("NumeroCnh", usuario.NumeroCnh) || _repository.VerifyExistingUser("Cnpj", usuario.Cnpj)))
+			return false;
+
 		return usuario.Id.Equals(0)
-			? _repository.InsertUser(usuario)
-			: _repository.UpdateUser(usuario);
+			? _repository.InsertUser(usuario) > 0
+			: _repository.UpdateUser(usuario) > 0;
 	}
 	public bool SalvarDocumentoCNH(IFormFile cnh)
 	{
-		string destinoDocumento = Path.Combine(Directory.GetCurrentDirectory(), "..", "Documentos_CNH");
+		var extensaoArquivo = Path.GetExtension(cnh.FileName).ToLower();
+		if (!extensaoArquivo.Equals(".png") && !extensaoArquivo.Equals(".bmp"))
+			return false;
+
+		string destinoDocumento = Path.Combine(Directory.GetCurrentDirectory(), "Documentos_CNH");
 		var filepath = Path.Combine(destinoDocumento, cnh.FileName);
 		try
 		{
@@ -33,7 +37,7 @@ public class UsuarioService
 	{
 		try
 		{
-			return _repository.GetTypeCNH(idUsuario).Contains("a");
+			return _repository.GetTypeCNH(idUsuario).Contains('a');
 		}
 		catch (Exception ex)
 		{
@@ -41,4 +45,5 @@ public class UsuarioService
 			return false;
 		}
 	}
+	public void RemoveUsers() => _repository.Remove();
 }
