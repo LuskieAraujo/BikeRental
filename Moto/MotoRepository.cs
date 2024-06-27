@@ -18,7 +18,7 @@ public class MotoRepository
 				$"insert into public.\"Bike\" (\"Ano\", \"Modelo\", \"Placa\") " +
 				$"values ('{bike.Ano}', '{bike.Modelo}', '{bike.Placa}')";
 
-			return da.ExecScalar(strSql);
+			return !da.ExecScalar(strSql).Equals(string.Empty);
 		}
 		catch (Exception ex)
 		{
@@ -38,7 +38,7 @@ public class MotoRepository
 			var strSql =
 				$"update public.\"Bike\" set \"Ano\" = '{bike.Ano}', \"Modelo\" = '{bike.Modelo}', \"Placa\" = '{bike.Placa}' " +
 				$"where \"Id\" = {bike.Id}";
-			return da.ExecScalar(strSql);
+			return !da.ExecScalar(strSql).Equals(string.Empty);
 		}
 		catch (Exception ex)
 		{
@@ -57,7 +57,7 @@ public class MotoRepository
 		{
 			var strSql = $"delete from public.\"Bike\" " +
 				$"where \"Id\" = {Id}";
-			return da.ExecScalar(strSql);
+			return !da.ExecScalar(strSql).Equals(string.Empty);
 		}
 		catch (Exception ex)
 		{

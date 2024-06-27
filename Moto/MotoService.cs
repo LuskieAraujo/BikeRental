@@ -19,24 +19,37 @@ public class MotoService
 	}
 	public bool SalvarDadosMoto(Moto moto)
 	{
-		return moto.Id.Equals(0)
+		if (ValidarDadosObrigatoriosVazios(moto)) return false;
+		if (moto.Id.Equals(0) && _repository.SelectBikes(moto.Placa).Count > 0) return false;
+
+		return moto.Id.Equals(0) 
 			? _repository.InsertBike(moto)
 			: !moto.Alugada && _repository.UpdateBike(moto);
 	}
 	public bool DeletarMoto(int id)
 	{
-		return new LocacaoService().MotoHistoricoLocacao(id).Count == 0
+		return new LocacaoService().HistoricoLocacaoMoto(id).Count == 0
 			? _repository.DeleteBike(id)
 			: false;
 	}
 	public Moto DetalharMoto(int id)
 	{
 		var bike = _repository.BikeDetails(id);
-		bike.HistoricoLocacoes.AddRange(new LocacaoService().MotoHistoricoLocacao(bike.Id));
+		bike.HistoricoLocacoes.AddRange(new LocacaoService().HistoricoLocacaoMoto(bike.Id));
 		return bike;
 	}
 	public List<Moto> ListarModelos()
 	{
 		return _repository.SelectModels();
+	}
+
+	private bool ValidarDadosObrigatoriosVazios(Moto bike)
+	{
+		if (bike == null) return false;
+		if (bike.Placa.Equals(string.Empty)) return false;
+		if (bike.Ano.Equals(0)) return false;
+		if (bike.Modelo.Equals(string.Empty)) return false;
+
+		return true;
 	}
 }

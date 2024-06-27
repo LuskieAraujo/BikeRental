@@ -47,6 +47,7 @@ public class MotoController : ControllerBase
 	{
 		try
 		{
+			//if (!ModelState.IsValid) return BadRequest(ModelState);
 			return _service.SalvarDadosMoto(bike) ? Ok() : Conflict();
 		}
 		catch
