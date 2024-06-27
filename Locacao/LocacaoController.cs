@@ -7,7 +7,7 @@ public class LocacaoController : ControllerBase
 {
 	private LocacaoService _service = new LocacaoService();
 	[HttpGet]
-	public ActionResult NewRent()
+	public ActionResult GetRentOptions()
 	{
 		try
 		{
@@ -18,18 +18,20 @@ public class LocacaoController : ControllerBase
 			return BadRequest();
 		}
 	}
-	public ActionResult CreateRent(Locacao locacao)
+	[HttpPost("EfetuarLocacao")]
+	public ActionResult CreateRent(Locacao locacao, int qtdeDiasPlano)
 	{
 		try
 		{
-			return Ok();
+			return Ok(_service.EfetuarLocacao(locacao, qtdeDiasPlano));
 		}
 		catch
 		{
 			return BadRequest();
 		}
 	}
-	public ActionResult CloseRent()
+	[HttpPut]
+	public ActionResult CloseRent(int idUsuario, DateTime dataEntrega)
 	{
 		try
 		{
